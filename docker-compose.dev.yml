@@ -51,8 +51,8 @@ services:
       - UCM_SMTP_TLS=false
     
     # Override command to use Flask dev server with auto-reload
-    #command: python3 -m flask run --host=0.0.0.0 --port=8443 --cert=data/https_cert.pem --key=data/https_key.pem --reload
-    command: sh -c "cd /opt/ucm/backend && python3 -m flask run --host=0.0.0.0 --port=8443 --cert=/opt/ucm/data/https_cert.pem --key=/opt/ucm/data/https_key.pem --reload"
+    command: python3 -m flask run --host=0.0.0.0 --port=8443 --cert=data/https_cert.pem --key=data/https_key.pem --reload
+    #command: sh -c "cd /opt/ucm/backend && python3 -m flask run --host=0.0.0.0 --port=8443 --cert=/opt/ucm/data/https_cert.pem --key=/opt/ucm/data/https_key.pem --reload"
     # Expose additional ports for debugging
     ports:
       - "${UCM_HTTPS_PORT:-8443}:8443"
