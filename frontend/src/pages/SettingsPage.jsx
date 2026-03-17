@@ -9,7 +9,7 @@ import ReactMarkdown from 'react-markdown'
 import { 
   Gear, EnvelopeSimple, ShieldCheck, Database, ListBullets, FloppyDisk, 
   Envelope, Download, Trash, HardDrives, Lock, Key, Palette, Sun, Moon, Desktop, Info,
-  Timer, Clock, WarningCircle, UploadSimple, Certificate, Eye, ArrowsClockwise, Rocket,
+  Timer, Clock, WarningCircle, UploadSimple, Certificate, Eye, ArrowsClockwise,
   Plus, PencilSimple, TestTube, Lightning, Globe, Shield, CheckCircle, XCircle, MagnifyingGlass,
   Bell, Copy, Power, ArrowClockwise, LockKey, Warning, User, GithubLogo,
   Plugs, UsersThree, UserPlus, TreeStructure, CaretDown, Play,
@@ -21,7 +21,7 @@ import {
   LoadingSpinner, FileUpload, Modal, HelpCard, Logo, ExperimentalBadge,
   DetailHeader, DetailSection, DetailGrid, DetailField, DetailContent,
   CompactSection,
-  UpdateChecker, ServiceReconnectOverlay
+  ServiceReconnectOverlay
 } from '../components'
 import { SmartImportModal } from '../components/SmartImport'
 import CertificateInput from '../components/CertificateInput'
@@ -49,7 +49,6 @@ const BASE_SETTINGS_CATEGORIES = [
   { id: 'audit', labelKey: 'settings.tabs.audit', icon: ListBullets, color: 'icon-bg-orange' },
   { id: 'database', labelKey: 'settings.tabs.database', icon: HardDrives, color: 'icon-bg-teal' },
   { id: 'https', labelKey: 'settings.tabs.https', icon: Lock, color: 'icon-bg-emerald' },
-  { id: 'updates', labelKey: 'settings.tabs.updates', icon: Rocket, color: 'icon-bg-violet' },
   { id: 'webhooks', labelKey: 'settings.tabs.webhooks', icon: Bell, color: 'icon-bg-rose' },
   { id: 'microsoftCA', labelKey: 'settings.tabs.microsoftCA', icon: WindowsLogo, color: 'icon-bg-indigo' },
   { id: 'about', labelKey: 'settings.tabs.about', icon: Info, color: 'icon-bg-sky' },
@@ -3743,18 +3742,6 @@ export default function SettingsPage() {
           </DetailContent>
         )
 
-      case 'updates':
-        return (
-          <DetailContent>
-            <DetailHeader
-              icon={Rocket}
-              title={t('settings.updatesTitle')}
-              subtitle={t('settings.updatesSubtitle')}
-            />
-            <UpdateChecker />
-          </DetailContent>
-        )
-
       case 'webhooks':
         return (
           <DetailContent>
@@ -3995,7 +3982,7 @@ export default function SettingsPage() {
         onTabChange={handleCategoryChange}
         tabLayout="sidebar"
         tabGroups={[
-          { labelKey: 'settings.groups.system', tabs: ['general', 'updates', 'database', 'https', 'backup'], color: 'icon-bg-blue' },
+          { labelKey: 'settings.groups.system', tabs: ['general', 'database', 'https', 'backup'], color: 'icon-bg-blue' },
           { labelKey: 'settings.groups.security', tabs: ['security', 'sso'], color: 'icon-bg-amber' },
           { labelKey: 'settings.groups.notifications', tabs: ['email', 'webhooks'], color: 'icon-bg-teal' },
           { labelKey: 'settings.groups.integrations', tabs: ['microsoftCA'], color: 'icon-bg-indigo' },

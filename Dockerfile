@@ -3,7 +3,7 @@
 # Paths aligned with DEB/RPM packages: /opt/ucm/{backend,frontend,data}
 
 # Stage 1: Builder - Install dependencies and build environment
-FROM python:3.13-slim-bookworm AS development
+FROM python:3.13-slim-bookworm AS builder
 
 # Install build dependencies (fallback for packages without prebuilt wheels)
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -26,10 +26,6 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
 
 # Stage 2: Runtime - Minimal production image
 FROM python:3.13-slim-bookworm
-
-LABEL maintainer="NeySlim <https://github.com/NeySlim>" \
-      description="Ultimate CA Manager - Certificate Authority Management System" \
-      org.opencontainers.image.source="https://github.com/NeySlim/ultimate-ca-manager"
 
 # Install only runtime dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \

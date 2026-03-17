@@ -1,7 +1,10 @@
 
 services:
   ucm:
-    image: neyslim/ultimate-ca-manager:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${UCM_IMAGE:-ultimate-ca-manager-ucm:latest}
     container_name: ucm
     restart: unless-stopped
     

@@ -4,3 +4,11 @@ req -x509 -newkey rsa:4096 \
 -keyout /data/https_key.pem \
 -out /data/https_cert.pem \
 -days 365 -nodes -subj "/CN=localhost"
+
+
+docker-compose -f .\docker-compose.yml -f .\docker-compose.dev.yml run --rm --no-deps --entrypoint sh ucm -c "openssl req -x509 -nodes -newkey rsa:4096 -sha256 -days 365 -keyout /opt/ucm/data/https_key.pem -out /opt/ucm/data/https_cert.pem -subj '/CN=localhost' -addext 'subjectAltName=DNS:localhost,IP:127.0.0.1' ; chmod 600 /opt/ucm/data/https_key.pem ; chmod 644 /opt/ucm/data/https_cert.pem"
+
+#Debug 2
+docker run --rm -v ultimate-ca-manager_ucm-data:/data alpine sh -c "ls -la /data ; test -f /data/https_cert.pem ; echo cert:$? ; test -f /data/https_key.pem ; echo key:$?"
+docker compose -f .\docker-compose.yml -f .\docker-compose.dev.yml down --remove-orphans
+docker compose -f .\docker-compose.yml -f .\docker-compose.dev.yml up -d --build
