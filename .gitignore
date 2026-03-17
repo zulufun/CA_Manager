@@ -97,7 +97,7 @@ logs/
 # Test files (root level only, not in tests/)
 /test_*.py
 /migrate_*.py
-data/
+# data/
 !frontend/src/data/
 CLAUDE.md
 backend/static/
