@@ -3,7 +3,7 @@
 # Paths aligned with DEB/RPM packages: /opt/ucm/{backend,frontend,data}
 
 # Stage 1: Builder - Install dependencies and build environment
-FROM python:3.13-slim-bookworm AS builder
+FROM python:3.13-slim-bookworm AS development
 
 # Install build dependencies (fallback for packages without prebuilt wheels)
 RUN apt-get update && apt-get install -y --no-install-recommends \

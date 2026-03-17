@@ -222,17 +222,34 @@ def create_app(config_name=None):
     app.logger.info("Starting database initialization...")
     app.logger.info("=" * 60)
     
-    import fcntl
     import time
+    import sys
     from config.settings import DATA_DIR
-    
+
     lock_file = os.path.join(DATA_DIR, '.db_init.lock')
-    
+
+    def _acquire_lock(lock):
+        if sys.platform == 'win32':
+            import msvcrt
+            msvcrt.locking(lock.fileno(), msvcrt.LK_LOCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+
+    def _release_lock(lock):
+        if sys.platform == 'win32':
+            import msvcrt
+            try:
+                lock.seek(0)
+                msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
+            except Exception:
+                pass
+
     with app.app_context():
         # Acquire exclusive lock to ensure only one worker initializes DB
         with open(lock_file, 'w') as lock:
             app.logger.info("Waiting for database initialization lock...")
-            fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+            _acquire_lock(lock)
             app.logger.info("✓ Database lock acquired")
             
             try:
@@ -307,7 +324,7 @@ def create_app(config_name=None):
                 app.logger.error(f"❌ FATAL: Database initialization failed: {e}")
                 raise
             finally:
-                # Lock is automatically released when exiting 'with' block
+                _release_lock(lock)
                 app.logger.info("✓ Database lock released")
     
     app.logger.info("=" * 60)

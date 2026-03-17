@@ -13,7 +13,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { ShieldCheck, Fingerprint, Key, User, ArrowRight, ArrowLeft, GithubLogo, Palette, Globe, SignIn, Lock } from '@phosphor-icons/react'
-import { Card, Button, Input, Logo, LoadingSpinner } from '../components'
+import { Card, Button, Input, LoadingSpinner } from '../components'
 import { languages } from '../i18n'
 import { useAuth, useNotification } from '../contexts'
 import { useTheme } from '../contexts/ThemeContext'
@@ -366,11 +366,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-dvh flex items-start sm:items-center justify-center bg-gradient-to-br from-bg-primary via-bg-secondary to-bg-tertiary p-2 sm:p-4 pt-2 sm:pt-4 overflow-hidden">
-      <Card className="w-full max-w-md p-4 sm:p-8 space-y-3 sm:space-y-5">
+    <div
+      className="min-h-dvh flex items-start sm:items-center justify-center p-2 sm:p-4 pt-2 sm:pt-4 overflow-hidden bg-cover bg-center bg-no-repeat relative"
+      style={{ backgroundImage: "url('/login-bg.png')" }}
+    >
+      <div className="absolute inset-0 bg-black/35" />
+      <Card className="w-full max-w-md p-4 sm:p-8 space-y-3 sm:space-y-5 relative z-10">
         {/* Logo */}
         <div className="flex justify-center mb-1 sm:mb-2">
-          <Logo variant="horizontal" size="lg" className="scale-90 sm:scale-100" />
+          <img
+            src="/tc.png"
+            alt="TC Logo"
+            className="h-16 sm:h-20 w-auto object-contain"
+          />
         </div>
 
         {/* Title */}

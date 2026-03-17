@@ -1,0 +1,6 @@
+#Debug
+docker run --rm -v ${PWD}/data:/data alpine/openssl \
+req -x509 -newkey rsa:4096 \
+-keyout /data/https_key.pem \
+-out /data/https_cert.pem \
+-days 365 -nodes -subj "/CN=localhost"

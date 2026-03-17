@@ -10,7 +10,9 @@
 
 services:
   ucm:
-    image: neyslim/ultimate-ca-manager:latest  # Use pre-built image
+    # Use locally built image from docker-compose.dev.yml build output.
+    # Override with UCM_IMAGE if your compose project name differs.
+    image: ${UCM_IMAGE:-ultimate-ca-manager-ucm:latest}
     
     # Production environment overrides
     environment:

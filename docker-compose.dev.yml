@@ -14,6 +14,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development  # Use development stage if multi-stage
+    container_name: ucm
     
     # Mount source code for hot-reload
     volumes:
@@ -73,8 +74,8 @@ services:
         max-size: "10m"
         max-file: "3"
     
-    labels:
-      - "com.ultimate-ca-manager.environment=development"
+    # labels:
+    #   - "com.ultimate-ca-manager.environment=development"
   
   # Optional: Mailhog for testing email notifications
   mailhog:
@@ -89,17 +90,25 @@ services:
     networks:
       - ucm-network
     
-    labels:
-      - "com.ultimate-ca-manager.service=mailhog"
+    # labels:
+    #   - "com.ultimate-ca-manager.service=mailhog"
   
   # Optional: Redis for testing caching
-  # redis:
-  #   image: redis:alpine
-  #   container_name: ucm-redis
-  #   restart: unless-stopped
-  #   
-  #   ports:
-  #     - "6379:6379"
-  #   
-  #   networks:
-  #     - ucm-network
+  redis:
+    image: redis:alpine
+    container_name: ucm-redis
+    restart: unless-stopped
+    
+    ports:
+      - "6379:6379"
+    
+    networks:
+      - ucm-network
+
+#add this to the end of the file to create a network for the services to communicate
+networks:
+  ucm-network:
+    driver: bridge
+
+volumes:
+  ucm-data:
